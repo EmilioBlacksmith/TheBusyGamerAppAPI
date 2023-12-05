@@ -1,10 +1,13 @@
 const app = require("express")();
+const cors = require("cors");
 const getTopGames = require("./modules/getTopGames");
 
 const PORT = 8080;
 
 const hltb = require("howlongtobeat");
-let hltbService = new hltb.HowLongToBeatService();
+const hltbService = new hltb.HowLongToBeatService();
+
+app.use(cors());
 
 app.get("/test", (req, res) => {
   res.status(200).send({
