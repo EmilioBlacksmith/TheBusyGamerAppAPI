@@ -1,5 +1,6 @@
 const app = require("express")();
-const axios = require("axios");
+const getTopGames = require("./modules/getTopGames");
+
 const PORT = 8080;
 
 const hltb = require("howlongtobeat");
@@ -10,6 +11,15 @@ app.get("/test", (req, res) => {
     message: "nigga",
     size: "medium",
   });
+});
+
+app.get("/topGames", async (req, res) => {
+  try {
+    const topGames = await getTopGames();
+    res.status(200).json(topGames);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.get("/search", async (req, res) => {
@@ -36,6 +46,6 @@ app.get("/search", async (req, res) => {
 app.listen(PORT, () =>
   console.log(
     `> Server is running on http://localhost:${PORT}\n`,
-    "- CTRL + C to close server..."
+    `- CTRL + C to close server...`
   )
 );
