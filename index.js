@@ -1,6 +1,8 @@
 const app = require("express")();
 const cors = require("cors");
 const getTopGames = require("./modules/getTopGames");
+const schedule = require("node-schedule");
+const fs = require("fs").promises;
 
 const PORT = 8080;
 
@@ -11,17 +13,19 @@ app.use(cors());
 
 app.get("/test", (req, res) => {
   res.status(200).send({
-    message: "nigga",
+    message: "lol I'm dead",
     size: "medium",
   });
 });
 
 app.get("/topGames", async (req, res) => {
   try {
-    const topGames = await getTopGames();
-    res.status(200).json(topGames);
+    const jsonData = await fs.readFile("./public/topGames.json", "utf-8");
+    const data = JSON.parse(jsonData);
+    res.status(200).json(data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error("Error reading JSON file:", error.message);
+    res.status(500).json({ success: false, error: "Internal server error" });
   }
 });
 
@@ -51,4 +55,12 @@ app.listen(PORT, () =>
     `> Server is running on http://localhost:${PORT}\n`,
     `- CTRL + C to close server...`
   )
+);
+
+const updateTopGamesJob = schedule.scheduleJob(
+  "0 0 * * TUE",
+  async function () {
+    await getTopGames();
+    console.log("Update Top Games Successful");
+  }
 );

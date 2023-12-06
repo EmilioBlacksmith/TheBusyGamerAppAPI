@@ -4,6 +4,9 @@ const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
 const hltb = require("howlongtobeat");
 
+// TODO: Fetch data every once a day, so it only does the update once a week, and saves everything into a json file that is public.
+const fs = require("fs").promises;
+
 const hltbService = new hltb.HowLongToBeatService();
 const BASE_URL = "https://howlongtobeat.com/stats";
 
@@ -55,7 +58,8 @@ async function getTopGames() {
 
     await browser.close();
 
-    return topGames;
+    let jsonData = JSON.stringify(topGames);
+    fs.writeFile("./public/topGames.json", jsonData, "utf-8");
   } catch (error) {
     console.log("Error:", error.message);
     throw error;
