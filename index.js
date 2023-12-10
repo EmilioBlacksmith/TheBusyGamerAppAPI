@@ -50,6 +50,17 @@ app.get("/search", async (req, res) => {
   }
 });
 
+app.get("/manual-update", async (req, res) => {
+  try {
+    await getTopGames();
+    console.log("Manual Update Top Games Successful");
+    return res.status(200).json({ message: "Manual Update Successful" });
+  } catch (error) {
+    console.log("Error: ", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.listen(PORT, () =>
   console.log(
     `> Server is running on http://localhost:${PORT}\n`,
