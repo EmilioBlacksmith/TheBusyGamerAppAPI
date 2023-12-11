@@ -68,10 +68,18 @@ app.listen(PORT, () =>
   )
 );
 
-const updateTopGamesJob = schedule.scheduleJob(
-  "0 0 * * TUE",
-  async function () {
-    await getTopGames();
-    console.log("Update Top Games Successful");
-  }
-);
+const updateTopGamesJob = schedule.scheduleJob("0 8 * * *", async function () {
+  await getTopGames();
+  let date = new Date(Date.now());
+  let currentDate = date.toDateString();
+  console.log("Updated Top Games Successful... Updated:", currentDate);
+});
+
+async function UpdateTopGames() {
+  await getTopGames();
+  let date = new Date(Date.now());
+  let currentDate = date.toDateString();
+  console.log("Updated Top Games Successful... Updated:", currentDate);
+}
+
+UpdateTopGames();

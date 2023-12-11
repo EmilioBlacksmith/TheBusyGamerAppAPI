@@ -1,4 +1,4 @@
-// WEB SCRAPPER made in conjuction with the HowLongToBeat Api by Christian Katzorke
+// WEB SCRAPPER made combined with the HowLongToBeat API by Christian Katzorke
 // https://github.com/ckatzorke/howlongtobeat
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
@@ -38,7 +38,6 @@ async function getTopGames() {
 
     let topGames = Array(25);
 
-    // Use map to create an array of promises
     const promises = links.map(async (index, i) => {
       try {
         const result = await hltbService.detail(index);
@@ -48,11 +47,7 @@ async function getTopGames() {
       }
     });
 
-    // Use Promise.all to wait for all promises to resolve
     await Promise.all(promises);
-
-    //console.log("25 Most Popular Games Right Now...");
-    //console.log(topGames);
 
     await browser.close();
 
