@@ -11,6 +11,8 @@ const hltbService = new hltb.HowLongToBeatService();
 
 app.use(cors());
 
+console.clear();
+
 app.get("/test", (req, res) => {
   res.status(200).send({
     message: "lol I'm dead",
@@ -24,7 +26,7 @@ app.get("/topGames", async (req, res) => {
     const data = JSON.parse(jsonData);
     res.status(200).json(data);
   } catch (error) {
-    console.error("Error reading JSON file:", error.message);
+    console.error("\nError reading JSON file:", error.message);
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 });
@@ -45,7 +47,7 @@ app.get("/search", async (req, res) => {
 
     return res.status(200).json(result);
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error("\n Error:", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 });
@@ -53,33 +55,56 @@ app.get("/search", async (req, res) => {
 app.get("/manual-update", async (req, res) => {
   try {
     await getTopGames();
-    console.log("Manual Update Top Games Successful");
+    console.log("\n// Manual Update Top Games Successful");
     return res.status(200).json({ message: "Manual Update Successful" });
   } catch (error) {
-    console.log("Error: ", error.message);
+    console.log("\n  Error: ", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-app.listen(PORT, () =>
-  console.log(
-    `> Server is running on http://localhost:${PORT}\n`,
-    `- CTRL + C to close server...`
-  )
-);
+app.listen(PORT, () => {
+  console.log(`// Server is running on: http://localhost:${PORT}`);
+  console.log(`// CTRL + C to close server...`);
+});
 
 const updateTopGamesJob = schedule.scheduleJob("0 8 * * *", async function () {
+  console.log("\n// Scheduled Update available \nAttempting Update...");
   await getTopGames();
-  let date = new Date(Date.now());
   let currentDate = date.toDateString();
-  console.log("Updated Top Games Successful... Updated:", currentDate);
+  let date = new Date(Date.now());
+  console.log("\n// Updated Top Games Successful... Updated:", currentDate);
 });
 
 async function UpdateTopGames() {
-  await getTopGames();
-  let date = new Date(Date.now());
-  let currentDate = date.toDateString();
-  console.log("Updated Top Games Successful... Updated:", currentDate);
+  try {
+    const jsonData = await fs.readFile("./public/topGames.json", "utf-8");
+    const data = JSON.parse(jsonData);
+    const lastUpdateDate = new Date(data[25]);
+    const currentDate = new Date(Date.now());
+    // divide by 3,600,000 to get the amount of hours elapsed, and that value get the floor to get the exact amount of hours elapsed since last update
+    let elapsed = Math.floor((currentDate - lastUpdateDate) / 3600000);
+    if (elapsed >= 1) {
+      console.log(
+        "\n// Hours Since Last Update:",
+        elapsed,
+        "|| Attempting Update..."
+      );
+      await getTopGames();
+      console.log(
+        "\n// Updated Top Games Successful... Updated:",
+        currentDate.toDateString()
+      );
+    } else {
+      console.log(
+        "\n// Hours Since Last Update:",
+        elapsed,
+        " || No Update Required."
+      );
+    }
+  } catch (error) {
+    console.error("\nError reading JSON file:", error.message);
+  }
 }
 
 UpdateTopGames();

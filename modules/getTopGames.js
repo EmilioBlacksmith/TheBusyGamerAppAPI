@@ -47,6 +47,10 @@ async function getTopGames() {
       }
     });
 
+    let currentDate = new Date(Date.now());
+    currentDate.toISOString;
+    topGames.push(currentDate);
+
     await Promise.all(promises);
 
     await browser.close();
