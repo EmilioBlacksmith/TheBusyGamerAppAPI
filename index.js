@@ -84,7 +84,7 @@ async function UpdateTopGames() {
     const currentDate = new Date(Date.now());
     // divide by 3,600,000 to get the amount of hours elapsed, and that value get the floor to get the exact amount of hours elapsed since last update
     let elapsed = Math.floor((currentDate - lastUpdateDate) / 3600000);
-    if (elapsed >= 1) {
+    if (elapsed >= 24) {
       console.log(
         "\n// Hours Since Last Update:",
         elapsed,
