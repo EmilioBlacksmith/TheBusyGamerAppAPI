@@ -90,6 +90,7 @@ async function UpdateTopGames() {
         elapsed,
         "|| Attempting Update..."
       );
+      console.log("// Last Update Date: ", lastUpdateDate.toDateString());
       await getTopGames();
       console.log(
         "\n// Updated Top Games Successful... Updated:",
@@ -101,6 +102,7 @@ async function UpdateTopGames() {
         elapsed,
         " || No Update Required."
       );
+      console.log("// Last Update Date: ", lastUpdateDate.toDateString());
     }
   } catch (error) {
     console.error("\nError reading JSON file:", error.message);
