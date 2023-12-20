@@ -85,11 +85,11 @@ app.listen(PORT, () => {
 	console.log(`// CTRL + C to close server...`);
 });
 
-const updateTopGamesJob = schedule.scheduleJob("0 8 * * *", async function () {
-	console.log("\n// Scheduled Update available \nAttempting Update...");
+const updateTopGamesJob = schedule.scheduleJob("0 0 * * *", async function () {
+	console.log("\n// Scheduled Update available", "|| Attempting Update...");
 	await getTopGames();
-	let currentDate = date.toDateString();
 	let date = new Date(Date.now());
+	let currentDate = date.toDateString();
 	console.log("\n// Updated Top Games Successful... Updated:", currentDate);
 });
 
