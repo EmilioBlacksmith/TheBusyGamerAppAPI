@@ -1,4 +1,4 @@
-// WEB SCRAPPER made combined with the HowLongToBeat API by Christian Katzorke
+// WEB SCRAPPER made combined with the HowLongToBeat API by Christian Katzorke, made by Emilio Blacksmith
 // https://github.com/ckatzorke/howlongtobeat
 const puppeteer = require("puppeteer");
 const cheerio = require("cheerio");
