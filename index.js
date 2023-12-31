@@ -4,7 +4,7 @@ const getTopGames = require("./modules/getTopGames");
 const schedule = require("node-schedule");
 const fs = require("fs").promises;
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 4000;
 
 const hltb = require("howlongtobeat");
 const hltbService = new hltb.HowLongToBeatService();
@@ -81,7 +81,7 @@ app.get("/manual-update", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-	console.log(`// Server is running on: http://localhost:${PORT}`);
+	console.log(`// Server is running on: ${PORT}`);
 	console.log(`// CTRL + C to close server...`);
 });
 
