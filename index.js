@@ -4,7 +4,7 @@ const getTopGames = require("./modules/getTopGames");
 const schedule = require("node-schedule");
 const fs = require("fs").promises;
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const hltb = require("howlongtobeat");
 const hltbService = new hltb.HowLongToBeatService();
