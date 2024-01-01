@@ -10,20 +10,21 @@ const hltbService = new hltb.HowLongToBeatService();
 const BASE_URL = "https://howlongtobeat.com/stats";
 
 async function getTopGames() {
+	const browser = await puppeteer.launch({
+		args: [
+			"--no-sandbox",
+			"--disable-setuid-sandbox",
+			"--disable-dev-shm-usage",
+			"--single-process",
+		],
+		headless: "new",
+		timeout: 0,
+		executablePath:
+			process.env.NODE_ENV === "production"
+				? process.env.PUPPETEER_EXECUTABLE_PATH
+				: puppeteer.executablePath(),
+	});
 	try {
-		const browser = await puppeteer.launch({
-			args: [
-				"--no-sandbox",
-				"--disable-setuid-sandbox",
-				"--disable-dev-shm-usage",
-				"--single-process",
-			],
-			headless: "new",
-			executablePath:
-				process.env.NODE_ENV === "production"
-					? process.env.PUPPETEER_EXECUTABLE_PATH
-					: puppeteer.executablePath(),
-		});
 		const page = await browser.newPage();
 
 		await page.setExtraHTTPHeaders({
