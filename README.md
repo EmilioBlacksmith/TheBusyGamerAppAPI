@@ -16,7 +16,6 @@ The Busy Gamer App, allows you to track the videogames that you want to play, an
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [Example](#example-request)
 - [Contributing](#contributing)
 - [Acknowledgements](#acknowledgments)
