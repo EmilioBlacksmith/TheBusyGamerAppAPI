@@ -1,11 +1,11 @@
 {
 	"name": "hltb_restfulapi",
 	"version": "1.0.0",
-	"description": "RESTful API that uses Christian Katzorke's HowLongToBeat API to make GET requests of games.",
+	"description": "RESTful API that uses Christian Katzorke's HowLongToBeat API to make GET requests of games, combined with a Get Top Games Function that improves from the API.",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node index"
+		"start": "node app"
 	},
 	"keywords": [],
 	"author": "",
