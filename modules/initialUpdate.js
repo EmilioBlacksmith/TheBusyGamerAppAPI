@@ -8,7 +8,7 @@ async function InitialUpdate() {
 		const lastUpdateDate = new Date(data[25]);
 		const currentDate = new Date(Date.now());
 		let elapsed = Math.floor((currentDate - lastUpdateDate) / 3600000);
-		if (elapsed >= 12) {
+		if (elapsed >= 20) {
 			console.log(
 				"\n// Hours Since Last Update:",
 				elapsed,
