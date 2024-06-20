@@ -8,7 +8,7 @@ async function InitialUpdate() {
 		const lastUpdateDate = new Date(data[25]);
 		const currentDate = new Date(Date.now());
 		let elapsed = Math.floor((currentDate - lastUpdateDate) / 3600000);
-		if (elapsed >= 24) {
+		if (elapsed >= 12) {
 			console.log(
 				"\n// Hours Since Last Update:",
 				elapsed,
@@ -31,6 +31,10 @@ async function InitialUpdate() {
 	} catch (error) {
 		console.error("\nError reading JSON file:", error.message);
 	}
+}
+
+if (require.main === module) {
+	InitialUpdate();
 }
 
 module.exports = InitialUpdate;
